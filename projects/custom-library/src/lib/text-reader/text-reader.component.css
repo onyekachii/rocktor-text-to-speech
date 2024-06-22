@@ -1,0 +1,15 @@
+button{
+    border: none;
+    background-color: inherit;
+}
+.playbtn{
+    color: green;
+}
+
+.pausebtn{
+    color: yellow;
+}
+
+.stopbtn{
+    color: red;
+}

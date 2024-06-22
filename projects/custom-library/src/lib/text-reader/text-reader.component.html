@@ -1,0 +1,20 @@
+<span class="d-flex flex-row justify-content-center" *ngIf="!isAndroid">
+    <button *ngIf="!this.synth.speaking else template" (click)="read()"><fa-icon class="playbtn" [icon]="faPlay"></fa-icon>
+    </button>
+
+    <ng-template #template>
+        <button (click)="stopReading()"><fa-icon class="stopbtn" [icon]="faStop"></fa-icon></button>        
+        <button *ngIf="!pauseValue else pauseTemplate" (click)="pause()"><fa-icon class="pausebtn" [icon]="faPause"></fa-icon></button>
+        <ng-template #pauseTemplate>
+            <button (click)="continue()"><fa-icon class="playbtn" [icon]="faPlay"></fa-icon></button>
+        </ng-template>
+    </ng-template>
+</span>   
+
+<span class="d-flex flex-row justify-content-center" *ngIf="isAndroid">
+    <button *ngIf="!this.synth.speaking else template" (click)="read()"><fa-icon class="playbtn" [icon]="faPlay"></fa-icon></button>
+
+    <ng-template #template>
+        <button (click)="stopReading()"><fa-icon class="stopbtn" [icon]="faStop"></fa-icon></button>
+    </ng-template>
+</span>
