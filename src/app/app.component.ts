@@ -10,6 +10,5 @@ import { RocktorTextToSpeechModule } from '../../projects/custom-library/src/lib
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'rocktor-text-to-speech';
-  textToRead = 'kennedy of the East. Because he is the king in the North. The fucking North.';
+  textToRead = '<p>kennedy of the East. Because he is the king in the North. The fucking &nbsp;&nbsp;&nbsp;North.</p>';
 }

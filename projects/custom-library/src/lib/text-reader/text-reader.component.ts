@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import { HTMLEntities } from '../../html-entities';
 import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,11 +7,11 @@ import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './text-reader.component.html',
   styleUrls: ['./text-reader.component.css']
 })
-export class TextReaderComponent implements OnChanges, OnDestroy, OnInit {
+export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterViewChecked {
   synth: any;
   pauseValue: boolean = false;
   @Input()
-  htmltext!: string;
+  text!: string;
   @Input() textarea: any;
   valueTxt!: string;
   revisedText!: string;  
@@ -19,7 +19,8 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit {
   faPlay = faPlay;
   faPause = faPause;
   faStop = faStop;
-
+  showControls: boolean = false;
+  @ViewChild('lessonnotearea') lessondiv!: ElementRef;
   public get isAndroid() : boolean {
     return this.getDeviceType() === Device.Android;
   }
@@ -31,9 +32,14 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit {
     this.window.addEventListener('beforeunload', () => {
       this.stopReading();
     });
-    this.valueTxt = this.htmltext;
-  }
+    this.valueTxt = this.text;
 
+  }
+  ngAfterViewChecked(): void {
+    this.textarea = this.lessondiv?.nativeElement;
+    this.checkText();
+    this.cdr.detectChanges();
+  }
   ngOnDestroy(): void {
     this.stopReading();
     window.removeEventListener('beforeunload', () => {
@@ -42,10 +48,10 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('htmltext' in changes) {
+    if ('text' in changes) {
       try {
         this.stopReading();
-        this.valueTxt = this.htmltext;
+        this.valueTxt = this.text;
       }
       catch (e) {
         console.log(e)
@@ -198,6 +204,12 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit {
       return Device.IOS;
     } else {
       return Device.PC;
+    }
+  }
+  private checkText(){        
+    if(this.text){
+      let decodedtxt = (HTMLEntities.cleanuphtml(this.text)).replace(/\s/g, '');      
+      this.showControls = decodedtxt?.length > 1;
     }
   }
    
