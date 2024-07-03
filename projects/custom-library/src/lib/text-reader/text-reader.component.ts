@@ -72,6 +72,7 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
       }
       let highlightDiv = document.getElementById('highlighted-word');
       if(highlightDiv){
+        highlightDiv.style.color = 'inherit'; 
         highlightDiv.style.fontSize = 'inherit';
         highlightDiv.style.fontWeight = 'inherit';
       }
