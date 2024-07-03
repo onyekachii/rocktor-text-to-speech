@@ -1,5 +1,5 @@
-<div *ngIf="showControls">
-    <span class="d-flex flex-row justify-content-center" *ngIf="!isAndroid">
+<div *ngIf="showControls" [style]="controlPosition">
+    <span class="" *ngIf="!isAndroid">
         <button *ngIf="!this.synth.speaking else template" (click)="read()"><fa-icon class="playbtn"
                 [icon]="faPlay"></fa-icon>
         </button>
@@ -14,7 +14,7 @@
         </ng-template>
     </span>
     
-    <span class="d-flex flex-row justify-content-center" *ngIf="isAndroid">
+    <span class="" *ngIf="isAndroid">
         <button *ngIf="!this.synth.speaking else template" (click)="read()"><fa-icon class="playbtn"
                 [icon]="faPlay"></fa-icon></button>
     
@@ -24,6 +24,6 @@
     </span>
 </div>
 
-<div #lessonnotearea class="card-body innerHTML-wrap"
+<div #lessonnotearea class=""
     *ngIf="text !=''" [innerHTML]="text">
 </div>

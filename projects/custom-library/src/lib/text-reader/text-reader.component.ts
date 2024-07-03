@@ -10,9 +10,9 @@ import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterViewChecked {
   synth: any;
   pauseValue: boolean = false;
-  @Input()
-  text!: string;
-  @Input() textarea: any;
+  @Input() text!: string;
+  @Input() controlHorizontalPosition: HorizontalPosition = HorizontalPosition.left;
+  textarea: any;
   valueTxt!: string;
   revisedText!: string;  
   window: Window = window;
@@ -23,6 +23,10 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
   @ViewChild('lessonnotearea') lessondiv!: ElementRef;
   public get isAndroid() : boolean {
     return this.getDeviceType() === Device.Android;
+  }
+  get controlPosition(): string {
+    let val = this.controlHorizontalPosition == 0 ? "center" : this.controlHorizontalPosition == 1 ? "start" : "end"
+    return `display: flex; justify-content: ${val};`
   }
     
   constructor(private cdr: ChangeDetectorRef) { }
@@ -36,7 +40,7 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
 
   }
   ngAfterViewChecked(): void {
-    this.textarea = this.lessondiv?.nativeElement;
+    this.textarea = this.lessondiv?.nativeElement;    
     this.checkText();
     this.cdr.detectChanges();
   }
@@ -110,13 +114,13 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
   }
 
   private highlight(index: number, charLength: number) {
-    if(!this.isAndroid){
+    //if(!this.isAndroid)
+    {
       let rep = this.valueTxt.substring(index, index + charLength);
-      let rep2 = `<span id='highlighted-word' class="highlight">${rep}</span>`;
-  
+      let rep2 = `<span id='highlighted-word' class="rocktor-highlight" style="font-size: larger; font-weight: bolder">${rep}</span>`;      
       let val = this.valueTxt.substring(0, index) + rep2 + this.valueTxt.substring(index + charLength);
       this.textarea.innerHTML = val;
-      let highlightDiv = document.getElementById('highlighted-word')
+      let highlightDiv = document.getElementById('highlighted-word');
       if (!this.isScrolledIntoView(highlightDiv))
         highlightDiv?.scrollIntoView();
     }    
@@ -198,12 +202,12 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
   }
   private getDeviceType(){
     const userAgent = window.navigator.userAgent;
-    if (/Android/.test(userAgent)) {
-      return Device.Android;
-    } else if (/iOS|iPhone|iPad/.test(userAgent)) {
+    if (/Windows NT|Macintosh|Linux/i.test(userAgent)){
+      return Device.PC;    
+    } else if (/iOS|iPhone|iPad/i.test(userAgent)) {
       return Device.IOS;
     } else {
-      return Device.PC;
+      return Device.Android;
     }
   }
   private checkText(){        
@@ -218,4 +222,9 @@ enum Device{
   PC,
   Android,
   IOS
+}
+export enum HorizontalPosition{
+  center,
+  left,
+  right
 }

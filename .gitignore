@@ -42,3 +42,4 @@ testem.log
 Thumbs.db
 /.vs
 /.vscode
+/projects/custom-library/node_modules
