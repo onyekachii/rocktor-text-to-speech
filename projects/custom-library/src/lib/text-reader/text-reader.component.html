@@ -24,6 +24,6 @@
     </span>
 </div>
 
-<div #lessonnotearea class=""
-    *ngIf="text !=''" [innerHTML]="text">
+<div #lessonnotearea class="rocktor-text-highlight"
+    *ngIf="showHighlight && text !=''" [innerHTML]="text">
 </div>

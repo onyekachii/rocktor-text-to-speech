@@ -13,3 +13,12 @@ button{
 .stopbtn{
     color: red;
 }
+.rocktor-text-highlight{
+    max-height: 60vh;
+    box-shadow: 0 4px 8px 0 rgba(36, 35, 35, 0.2);
+    transition: box-shadow 0.3s;
+    border-radius: 10px;
+    padding: 5px 2vw;
+    margin-top: 5px;
+  }
+  

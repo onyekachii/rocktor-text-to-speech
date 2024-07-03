@@ -12,6 +12,8 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
   pauseValue: boolean = false;
   @Input() text!: string;
   @Input() controlHorizontalPosition: HorizontalPosition = HorizontalPosition.left;
+  @Input() showHighlight: boolean = true;
+  @Input() highlightStyle: string = "font-size: larger; font-weight: bolder";
   textarea: any;
   valueTxt!: string;
   revisedText!: string;  
@@ -117,7 +119,7 @@ export class TextReaderComponent implements OnChanges, OnDestroy, OnInit, AfterV
     //if(!this.isAndroid)
     {
       let rep = this.valueTxt.substring(index, index + charLength);
-      let rep2 = `<span id='highlighted-word' class="rocktor-highlight" style="font-size: larger; font-weight: bolder">${rep}</span>`;      
+      let rep2 = `<span id='highlighted-word' class="rocktor-highlight" style='${this.highlightStyle}'>${rep}</span>`;      
       let val = this.valueTxt.substring(0, index) + rep2 + this.valueTxt.substring(index + charLength);
       this.textarea.innerHTML = val;
       let highlightDiv = document.getElementById('highlighted-word');
