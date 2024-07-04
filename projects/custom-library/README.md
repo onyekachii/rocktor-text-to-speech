@@ -37,3 +37,7 @@ controlPosition = HorizontalPosition.center;
 ```typescript
 highlightStyle = "font-size: 20em; font-weight: 700; color: blue";
 ```
+
+## Limitation
+
+One known limitation is observed in the highlighing of words on android browser. An anomaly with SpeechSynthesisUtterance.OnBoundary event causes a bug that prevents the highligher from working. This bug is a known issue for android browsers like google chrome
