@@ -1,27 +1,43 @@
-# RocktorTextToSpeech
+# Rocktor's Text-To-Speech with Highlighter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
+A simple angular component which implements a text reader as well as word highlighting. A big advantage of this implementation is that it can also read text from HTML markup and avoid reading HTML entities. This feature successfully solves the problem of reading and highlighting unwanted text (html tags and entities).
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* Text-to-Speech reader
+* Accepts HTML markup and entitites
+* Highlighter
+* Auto scrolling
 
-## Code scaffolding
+## Installation/Setup and Usage
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* Install npm package
+```bash
+npm i rocktor-text-to-speech-and-highlighter-angular
+```
+* Ensure RocktorTextToSpeechModule is impoerted in root module or component
+* On your component.html file:
+```html
+<app-text-reader [text]="textToRead"></app-text-reader>
+``` 
+Optional attributes:
+* controlHorizontalPosition: Sets the horizontal position of the media control buttons. Values include HorizontalPosition.center, HorizontalPosition.left and HorizontalPosition.right.
+```typescript
+import { HorizontalPosition } from ...
+...
+...
+...
+controlPosition = HorizontalPosition.center;
+```
+```html
+<app-text-reader [text]="textToRead" [controlHorizontalPosition]="controlPosition"></app-text-reader>
+```
+* showHighlight: a boolean value to activate or deactivate highlighting
+* highlightStyle: styles highlighted word. Only three css properties (shown below) are should to be set as they reset after text after reader stops.
+```typescript
+highlightStyle = "font-size: 20em; font-weight: 700; color: blue";
+```
 
-## Build
+## Limitation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+One known limitation is observed in the highlighing of words on android browser. An anomaly with SpeechSynthesisUtterance.OnBoundary event causes a bug that prevents the highligher from working. This bug is a known issue for android browsers like google chrome
