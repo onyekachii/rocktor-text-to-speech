@@ -11,7 +11,9 @@ import { HorizontalPosition } from '../../projects/custom-library/src/lib/text-r
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  textToRead = '<p>kennedy of the East. Because he is the king in the North. The fucking &nbsp;&nbsp;&nbsp;North.</p>';
+  textToRead = '<p>A simple angular component which implements a text reader as well as word highlighting.' +
+  ' A big advantage of this implementation is that it can also read text from HTML markup and avoid reading HTML entities.' +
+  ' This feature successfully solves the problem of reading and highlighting unwanted text (html tags and entities).</p>';
   controlPosition = HorizontalPosition.center;
   showHighlight = true;
   highlightStyle = "font-size: larger; font-weight: bolder; color: blue";

@@ -1,24 +1,39 @@
-# CustomLibrary
+# Rocktor's Text-To-Speech with Highlighter
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+A simple angular component which implements a text reader as well as word highlighting. A big advantage of this implementation is that it can also read text from HTML markup and avoid reading HTML entities. This feature successfully solves the problem of reading and highlighting unwanted text (html tags and entities).
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name --project custom-library` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project custom-library`.
-> Note: Don't forget to add `--project custom-library` or else it will be added to the default project in your `angular.json` file. 
+* Text-to-Speech reader
+* Accepts HTML markup and entitites
+* Highlighter
+* Auto scrolling
 
-## Build
+## Installation/Setup and Usage
 
-Run `ng build custom-library` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build custom-library`, go to the dist folder `cd dist/custom-library` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test custom-library` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+* Install npm package
+```bash
+npm i rocktor-text-to-speech-and-highlighter-angular
+```
+* Ensure RocktorTextToSpeechModule is impoerted in root module or component
+* On your component.html file:
+```html
+<app-text-reader [text]="textToRead"></app-text-reader>
+``` 
+Optional attributes:
+* controlHorizontalPosition: Sets the horizontal position of the media control buttons. Values include HorizontalPosition.center, HorizontalPosition.left and HorizontalPosition.right.
+```typescript
+import { HorizontalPosition } from ...
+...
+...
+...
+controlPosition = HorizontalPosition.center;
+```
+```html
+<app-text-reader [text]="textToRead" [controlHorizontalPosition]="controlPosition"></app-text-reader>
+```
+* showHighlight: a boolean value to activate or deactivate highlighting
+* highlightStyle: styles highlighted word. Only three css properties (shown below) are should to be set as they reset after text after reader stops.
+```typescript
+highlightStyle = "font-size: 20em; font-weight: 700; color: blue";
+```
